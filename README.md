@@ -47,3 +47,79 @@ Storage: 8 GiB qcow2 (default pool)
 Network: Bridge br0, model virtio → Finish & install.
 
 Repeat for Host-VM-2.
+Enable nested virt in Host-VM-2
+Back in the host’s virt-manager window, with Host-VM-2 selected, click the 🛈 (Show hardware details) icon.
+
+Click the “XML” tab.
+
+Locate the <cpu> element and change it from:
+
+xml
+Copy
+Edit
+<cpu mode="host-passthrough" …/>
+to:
+
+xml
+Copy
+Edit
+<cpu mode="host-passthrough" …>
+  <feature policy="require" name="vmx"/>
+</cpu>
+Click Apply, then Shut Down → Start Host-VM-2.
+
+Inside Host-VM-2, verify:
+
+bash
+Copy
+Edit
+grep -E 'vmx|svm' /proc/cpuinfo
+sudo kvm-ok
+5. Install QEMU/KVM in Host-VM-2
+In the Host-VM-2 console:
+
+bash
+Copy
+Edit
+sudo apt update
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients \
+                    bridge-utils virt-manager cpu-checker
+sudo usermod -aG libvirt,kvm $USER
+Log out and back in (or reboot) so your user is in the libvirt and kvm groups.
+
+With both Host-VMs up, next you’ll repeat the nested-VM creation steps inside each (creating Nested-VM A in Host-VM-1 and Nested-VM B in Host-VM-2), hooking their NICs into br0, assigning them 10.0.0.10/20, and then testing connectivity.
+
+
+
+
+
+
+
+
+You said:
+  <cpu mode="host-passthrough" check="none" migratable="on"/>
+Do the exact commands for me to copy
+
+
+ChatGPT said:
+Run:
+
+bash
+Copy
+Edit
+virsh edit Host-VM-2
+Then find the single-line <cpu> entry:
+
+xml
+Copy
+Edit
+<cpu mode="host-passthrough" check="none" migratable="on"/>
+Replace that line with exactly:
+
+xml
+Copy
+Edit
+<cpu mode="host-passthrough" check="none" migratable="on">
+  <feature policy="require" name="vmx"/>
+</cpu>
+Save and exit. Then reboot Host-VM-2 for the change to take effect.
