@@ -123,3 +123,23 @@ Edit
   <feature policy="require" name="vmx"/>
 </cpu>
 Save and exit. Then reboot Host-VM-2 for the change to take effect.
+
+Create (or verify) a bridge inside Host-VM-1
+You need a Linux bridge inside the VM so your nested guest can share the host-VM’s external link:
+
+bash
+Copy
+Edit
+# 1. Add and bring up the bridge
+sudo ip link add name br0 type bridge
+sudo ip link set dev br0 up
+
+# 2. Enslave Host-VM-1’s physical interface (enp1s0) into it
+sudo ip link set dev enp1s0 master br0
+sudo ip link set dev enp1s0 up
+
+# 3. DHCP for the bridge
+sudo dhclient -v br0
+
+# 4. Verify
+ip addr show br0    # should show your real‐network IPv4
