@@ -15,11 +15,11 @@ sudo apt install -y \
 sudo usermod -aG libvirt,kvm $USER
 # Log out & back in
 
-###1.2 Verify KVM Support
+### 1.2 Verify KVM Support
 sudo kvm-ok
 # → “Should print out KVM acceleration can be used”
 
-###1.3 Create a Linux Bridge on the Physical NIC
+### 1.3 Create a Linux Bridge on the Physical NIC
 # 1. identify the wired NIC name (mine was enx0826ae3a1b00)
 ip link show
 
