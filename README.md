@@ -1,6 +1,8 @@
 # README: Simulating a Two‐Host QEMU/KVM Cluster on One Laptop
 
-This guide walks you through all the commands and steps to mimic two separate hypervisor hosts (Host-VM-1 and Host-VM-2), each running their own nested guest (Nested-VM-A and Nested-VM-B), all on a single Ubuntu laptop.
+This guide walks you through all the commands and steps to mimic two separate hypervisor hosts (Host-VM-1 and Host-VM-2), each running their own nested guest (Nested-VM-A and Nested-VM-B), all on a single Ubuntu laptop. 
+
+You will need a laptop, preferably one with good size RAM. You will also need a ethernet connection to the laptop.
 
 ---
 ### 1 On Your Ubuntu Laptop (Physical Host) Install KVM/QEMU, libvirt, virt-manager, etc.
