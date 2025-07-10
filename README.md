@@ -14,3 +14,24 @@ sudo apt install -y \
   bridge-utils virt-manager cpu-checker
 sudo usermod -aG libvirt,kvm $USER
 # Log out & back in
+
+###1.2 Verify KVM Support
+sudo kvm-ok
+# → “Should print out KVM acceleration can be used”
+
+###1.3 Create a Linux Bridge on the Physical NIC
+# 1. identify the wired NIC name (mine was enx0826ae3a1b00)
+ip link show
+
+# 2. create & bring up br0
+sudo ip link add br0 type bridge
+sudo ip link set br0 up
+
+# 3. enslave your NIC into br0
+sudo ip link set enx0826ae3a1b00 master br0
+sudo ip link set enx0826ae3a1b00 up
+
+
+# 4. DHCP on br0sudo dhclient -v br
+sudo dhclient -v br0
+ip addr show br0
