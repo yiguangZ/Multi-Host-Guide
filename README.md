@@ -14,7 +14,7 @@ sudo apt install -y \
   bridge-utils virt-manager cpu-checker
 sudo usermod -aG libvirt,kvm $USER
 # Log out & back in
-
+```
 ### 1.2 Verify KVM Support
 sudo kvm-ok
 # → “Should print out KVM acceleration can be used”
