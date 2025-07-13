@@ -149,7 +149,7 @@ To move from this single-laptop to a true multi-host cluster:
      ```
 
 2. **Configure Shared Storage**  
-   - Mount your cluster’s shared filesystem (e.g. NFS, CephFS, or GlusterFS) at `/srv/vm-images` on every host.  
+   - Mount your cluster’s shared filesystem  at `/srv/vm-images` on every host.  
    - Create a libvirt storage pool pointing there:  
      ```bash
      virsh pool-define-as shared-images dir --target /srv/vm-images
@@ -182,8 +182,6 @@ To move from this single-laptop to a true multi-host cluster:
      - **oVirt / RHV**  
      - **Proxmox VE**  
      - **OpenStack Nova + Neutron + Cinder**  
-   - These platforms integrate compute, storage, and networking into one portal and handle live‑migrations, failover, and resource balancing across all your nodes.
-
 ---
 
-By pointing each VM’s disk to a shared storage pool and using a uniform bridge network, you achieve a **true multi‑node virtualization cluster** with full CPU/memory isolation, fast live‑migration, and high availability—no nesting required.```
+By pointing each VM’s disk to a shared storage pool and using a uniform bridge network, we have a true multi‑node virtualization cluster with full CPU/memory isolation.
